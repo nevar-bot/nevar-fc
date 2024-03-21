@@ -1,16 +1,22 @@
 {
-  "name": "nevar",
-  "description": "Nevar is a simple, lightweight, and fast discord bot built with typescript and discord.js",
-  "version": "5.5.0",
-  "homepage": "https://nevar.eu",
+  "name": "nevar-fc",
+  "description": "FC-Version of Nevar",
+  "version": "1.0.0",
+  "homepage": "https://discord.gg/GN3BWpy4UK",
   "main": "build/app.js",
   "type": "module",
   "license": "AGPL-3.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nevar-bot/nevar.git"
+    "url": "git+https://github.com/nevar-bot/nevar-fc.git"
   },
   "author": "1887jonas <admin@nevar.eu> (https://github.com/1887jonas)",
+  "contributors": [
+    {
+      "name": "Hopfeeen",
+      "url": "https://github.com/Hopfeeen"
+    }
+  ],
   "engines": {
     "node": ">=20.11.0",
     "npm": ">=10.4.0"
@@ -20,7 +26,7 @@
     "url": "https://prohosting24.net/cp/donate/nevar"
   },
   "bugs": {
-    "url": "https://github.com/nevar-bot/nevar/issues",
+    "url": "https://github.com/nevar-bot/nevar-fc/issues",
     "email": "hello@nevar.eu"
   },
   "scripts": {
@@ -47,6 +53,7 @@
     "@twurple/api": "^7.0.6",
     "axios": "^1.6.4",
     "canvacord": "^6.0.0",
+    "canvas": "^2.11.2",
     "colorette": "^2.0.20",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",

@@ -34,6 +34,8 @@ INVITE = ""
 BOT_LOG = ""
 # ID of the channel where the bot sends its errors*
 ERROR_LOG = ""
+# ID of Pokalsieger role
+POKALSIEGER = ""
 
 [ embeds ]
 # Default footer text for all embeds*
@@ -54,6 +56,8 @@ PORT = 8075
 AUTHORIZATION = ""
 
 [ channels ]
+# ID of lobby channel, where pokalsieger is announced
+LOBBY_ID = ""
 # ID and design of the channel where the current number of servers is displayed (the already existing variable in {} is automatically replaced)
 SERVER_COUNT_ID = ""
 SERVER_COUNT_NAME = "💻 ➜ {count} servers"

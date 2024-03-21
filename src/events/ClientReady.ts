@@ -15,6 +15,11 @@ import updatePolls from "@handlers/updatePolls.js";
 import dashboard from "@dashboard/app.js";
 import api from "@api/app.js";
 import BaseClient from "@structures/BaseClient.js";
+import evaluateMessageStats from "@handlers/evaluateMessageStats.js";
+import evaluateVoiceStats from "@handlers/evaluateVoiceStats.js";
+import createBundesligaGameEvent from "@handlers/createNextGameEvent.js";
+import selkeSamstag from "@handlers/selkeSamstag.js";
+import changeBanner from "@handlers/changeBanner.js";
 
 export default class {
 	public client: BaseClient;
@@ -38,6 +43,17 @@ export default class {
 			await registerInteractions(client);
 		});
 
+		/* FC Bot special features */
+		scheduleJob("0 0 * * *", async (): Promise<void> => {
+			await evaluateMessageStats(client);
+			await evaluateVoiceStats(client);
+			await createBundesligaGameEvent(client);
+		});
+
+		scheduleJob("0 0 * * 6", async (): Promise<void> => {
+			await selkeSamstag(client);
+		});
+
 		/* Initiate presence handler */
 		handlePresence(client);
 
@@ -52,6 +68,7 @@ export default class {
 		twitchNotifier.init(client);
 		endGiveaways.init(client);
 		updatePolls.init(client);
+		changeBanner.init(client);
 		if (config.api["ENABLED"]) api.init(client);
 
 		/* Support server stats channels */

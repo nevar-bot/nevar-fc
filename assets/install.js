@@ -40,4 +40,45 @@ fs.writeFile("./assets/votes.json", JSON.stringify(voteObject, null, 4), functio
     }
 });
 
+/* assets/messages.json */
+const messagesObject = {
+    stats: {}
+}
+fs.writeFile("./assets/messages.json", JSON.stringify(messagesObject, null, 4), function(Error){
+    if(Error){
+        console.log(bgRed("ERROR") + " " + cyan("Couldn't create assets/messages.json"));
+        console.error(Error);
+    }else{
+        console.log(bgGreen("SUCCESS") + " " + cyan("Created assets/messages.json"));
+    }
+});
 
+/* assets/voice.json */
+const voiceObject = {
+    joinTime: {},
+    voiceTime: {},
+    afk: {}
+};
+
+fs.writeFile("./assets/voice.json", JSON.stringify(voiceObject, null, 4), function(Error){
+    if(Error){
+        console.log(bgRed("ERROR") + " " + cyan("Couldn't create assets/voice.json"));
+        console.error(Error);
+    }else{
+        console.log(bgGreen("SUCCESS") + " " + cyan("Created assets/voice.json"));
+    }
+});
+
+/* assets/selke_samstag.json */
+const selkeSamstagObject = {
+    userClickCount: {}
+}
+
+fs.writeFile("./assets/selke_samstag.json", JSON.stringify(selkeSamstagObject, null, 4), function(Error){
+    if(Error){
+        console.log(bgRed("ERROR") + " " + cyan("Couldn't create assets/selke_samstag.json"));
+        console.error(Error);
+    }else{
+        console.log(bgGreen("SUCCESS") + " " + cyan("Created assets/selke_samstag.json"));
+    }
+});

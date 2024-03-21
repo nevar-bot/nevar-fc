@@ -2,6 +2,7 @@ import BaseClient from "@structures/BaseClient.js";
 import { ButtonBuilder, EmbedBuilder } from "discord.js";
 import ems from "enhanced-ms";
 const ms: any = ems("de");
+import fs from "fs";
 
 export default class {
 	private client: BaseClient;
@@ -26,6 +27,14 @@ export default class {
 		guild.data = data.guild;
 		member.data = data.member;
 		member.user.data = data.user;
+
+		/* Message counter */
+		if(!message.author.bot){
+			const messagesFile: any = JSON.parse(fs.readFileSync("./assets/messages.json").toString());
+			messagesFile.stats = messagesFile.stats || {};
+			messagesFile.stats[message.author.id] = (messagesFile.stats[message.author.id] || 0) + 1;
+			fs.writeFileSync("./assets/messages.json", JSON.stringify(messagesFile, null, 2));
+		}
 
 		/* Afk system */
 		/* Author mentions afk user */

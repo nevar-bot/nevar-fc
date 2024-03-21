@@ -1,5 +1,7 @@
 import { ChannelType, EmbedBuilder, VoiceState } from "discord.js";
 import BaseClient from "@structures/BaseClient.js";
+import * as fs from "fs";
+import voiceStateUpdate from "@root/build/events/voice/VoiceStateUpdate";
 
 export default class {
 	private client: BaseClient;
@@ -15,6 +17,74 @@ export default class {
 		const { channel: newChannel, member: newMember, guild } = newState;
 
 		const guildData: any = await this.client.findOrCreateGuild(guild.id);
+
+		/* Voice time counter */
+		const voiceFile: any = JSON.parse(fs.readFileSync("./assets/voice.json").toString());
+		voiceFile.joinTime = voiceFile.joinTime || {};
+		voiceFile.voiceTime = voiceFile.voiceTime || {};
+		voiceFile.afk = voiceFile.afk || {};
+
+		const now: any = Date.now();
+
+		if(newChannel){
+			if(newChannel?.members.size < 2 || newState.mute || newState.deaf){
+				if(!voiceFile.afk[newMember!.id]) voiceFile.afk[newMember!.id] = now;
+			}
+			if(newChannel?.members.size >= 2){
+				for(const voiceMember of newChannel.members.values()){
+					if(voiceFile.afk[voiceMember.id] && !voiceMember.voice.deaf && !voiceMember.voice.mute && (voiceMember.id !== newMember!.id)){
+						delete voiceFile.afk[voiceMember.id];
+					}
+				}
+
+				if(voiceFile.afk[newMember!.id] && !newState.deaf && !newState.mute){
+					const joinDate: any = voiceFile.joinTime[newMember!.id];
+					const voiceTime: any = Date.now() - joinDate;
+
+					const afkDate: any = voiceFile.afk[newMember!.id];
+					const afkTime: any = Date.now() - afkDate;
+
+					/* Not afk minutes */
+					let validTime: any = voiceTime - afkTime;
+					if(validTime < 0) validTime = null;
+
+					delete voiceFile.afk[newMember!.id];
+					if(validTime) voiceFile.voiceTime[newMember!.id] = (voiceFile.voiceTime[newMember!.id] || 0) + validTime;
+					voiceFile.joinTime[newMember!.id] = now;
+				}
+			}
+		}
+
+		if(oldChannel){
+			if(oldChannel?.members.size < 2){
+				for(const voiceMember of oldChannel.members.values()){
+					if(!voiceFile.afk[voiceMember.id]) voiceFile.afk[voiceMember.id] = now;
+				}
+			}
+		}
+
+		if(!oldChannel && newChannel){
+			voiceFile.joinTime[newMember!.id] = now;
+		}else if(!newChannel && oldChannel){
+			const joinDate: any = voiceFile.joinTime[oldMember!.id];
+			const voiceTime: any = Date.now() - joinDate;
+			let validTime: any = voiceTime;
+
+			if(voiceFile.afk[oldMember!.id]){
+				const afkDate: any = voiceFile.afk[oldMember!.id];
+				const afkTime: any = Date.now() - afkDate;
+				validTime = validTime - afkTime;
+				delete voiceFile.afk[oldMember!.id];
+			}
+
+			if(validTime < 0) validTime = null;
+			delete voiceFile.joinTime[oldMember!.id];
+			if(validTime) voiceFile.voiceTime[oldMember!.id] = (voiceFile.voiceTime[oldMember!.id] || 0) + validTime;
+		}
+
+		fs.writeFileSync("./assets/voice.json", JSON.stringify(voiceFile, null, 2));
+
+		/* Join to create */
 		const { joinToCreate: joinToCreateSettings } = guildData.settings;
 
 		if (newChannel && joinToCreateSettings?.enabled && joinToCreateSettings?.channel) {

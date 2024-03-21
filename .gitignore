@@ -15,3 +15,6 @@ config.toml
 config-sample.toml
 assets/disabled.json
 assets/votes.json
+assets/messages.json
+assets/voice.json
+assets/selke_samstag.json
