@@ -1,9 +1,9 @@
 {
-  "success": "<:nevar_success:1061706382254034954>",
-  "error": "<:nevar_error:1061706621581004870>",
-  "warning": "<:nevar_warning:1061708005042831430>",
-  "arrow": "<:nevar_arrow_right:1070051501738831952>",
-  "loading": "<:nevar_loading:1061708470715433130>",
+  "success": "<:success:1281310039793074298>",
+  "error": "<:error:1281310003050844202>",
+  "warning": "<:warrning:1281319405892014120>",
+  "arrow": "<:arow_right:1281319485633990696>",
+  "loading": "<:loading:1281319345280258079>",
 
 
   "1": "<:nevar_1:1076234573047935067>",
@@ -62,12 +62,12 @@
   },
 
   "arrows": {
-    "left": "<:nevar_arrow_left:1070052117768851516>",
-    "right": "<:nevar_arrow_right:1070051501738831952>",
-    "up": "<:nevar_arrow_up:1070052282525294684>",
-    "down": "<:nevar_arrow_down:1070052202590240808>",
-    "forward": "<:nevar_arrow_forward:1070052015025172500>",
-    "backward": "<:nevar_arrow_backward:1070051861165506630>"
+    "left": "<:arow_left:1281319486968041574>",
+    "right": "<:arow_right:1281319485633990696>",
+    "up": "<:arow_up:1281319483600011305>",
+    "down": "<:arow_down:1281319490038272103>",
+    "forward": "<:arow_next:1281319488276402226>",
+    "backward": "<:arow_previous:1281319491770388552>"
   },
 
   "status": {
